@@ -1,0 +1,11 @@
+FROM docker.elastic.co/logstash/logstash:7.1.0
+
+RUN rm -f /usr/share/logstash/pipeline/logstash.conf
+
+RUN /usr/share/logstash/bin/logstash-plugin install logstash-codec-cloudtrail
+RUN /usr/share/logstash/bin/logstash-plugin install logstash-input-s3
+RUN /usr/share/logstash/bin/logstash-plugin install logstash-filter-geoip
+RUN /usr/share/logstash/bin/logstash-plugin install logstash-filter-split
+RUN /usr/share/logstash/bin/logstash-plugin install logstash-output-elasticsearch
+
+ADD files/logstash.conf /usr/share/logstash/pipeline/logstash.conf

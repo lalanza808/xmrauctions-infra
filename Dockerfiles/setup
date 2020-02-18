@@ -1,0 +1,6 @@
+FROM python:3
+RUN python3 -m pip install requests
+WORKDIR /srv
+COPY ./files/setup_es.py .
+COPY ./files/export.json .
+ENTRYPOINT ["python3", "-u", "setup_es.py"]
