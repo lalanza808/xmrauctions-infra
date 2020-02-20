@@ -26,7 +26,7 @@ down: ## Stop and remove all containers
 	docker-compose down --remove-orphans
 
 clean: ## Stop and remove all containers and their data
-	rm -rf ./data
+	rm -rf ./data/*
 
 useradd: ## Create IAM user for performing log syncing
 	aws iam create-user --user-name logs || echo "[+] User exists"

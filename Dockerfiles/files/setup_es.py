@@ -54,7 +54,7 @@ def load_index_settings():
 
 def load_exported_objects():
     print('[+] Adding exported objects')
-    sleep(5)
+    sleep(10)
 
     # Read export.json
     with open('export.json', 'r') as f:
