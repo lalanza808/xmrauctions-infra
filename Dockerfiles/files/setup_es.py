@@ -6,7 +6,7 @@ from time import sleep
 
 es_headers = {'Content-Type': 'application/json'}
 kibana_headers = {'Content-Type': 'application/json', 'kbn-xsrf': 'true'}
-pattern = {
+cloudtrail_pattern = {
     "index_patterns": ["cloudtrail-*"],
     "settings" : {
         "index.mapping.total_fields.limit" : "2000"
@@ -23,6 +23,17 @@ pattern = {
     }
 }
 
+nginx_pattern = {
+    "index_patterns": ["nginx-*"],
+    "mappings": {
+        "properties": {
+            "geoip.location": {
+                "type": "geo_point"
+            }
+        }
+    }
+}
+
 def wait_for_es():
     keep_trying = True
     while keep_trying:
@@ -31,13 +42,15 @@ def wait_for_es():
             keep_trying = False
         except:
             print('[!] Elasticsearch not ready yet....waiting')
-            sleep(5)
+            sleep(15)
 
 def load_index_settings():
     # Publish index mappings and settings
-    print('[+] Adding Cloudtrail index mappings and settings')
-    r = requests.put('http://elasticsearch:9200/_template/cloudtrail', headers=es_headers, data=json.dumps(pattern))
-    print(r)
+    print('[+] Adding Cloudtrail and Nginx index mappings and settings')
+    r1 = requests.put('http://elasticsearch:9200/_template/cloudtrail', headers=es_headers, data=json.dumps(cloudtrail_pattern))
+    r2 = requests.put('http://elasticsearch:9200/_template/nginx', headers=es_headers, data=json.dumps(nginx_pattern))
+    print(r1)
+    print(r2)
 
 def load_exported_objects():
     print('[+] Adding exported objects')

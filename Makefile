@@ -19,6 +19,9 @@ logs: ## Begin streaming logs to terminal
 stop: ## Stop all containers
 	docker-compose stop
 
+start: ## Start all containers
+	docker-compose start
+
 down: ## Stop and remove all containers
 	docker-compose down --remove-orphans
 
