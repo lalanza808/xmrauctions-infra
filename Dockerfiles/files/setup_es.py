@@ -38,7 +38,7 @@ def wait_for_es():
     keep_trying = True
     while keep_trying:
         try:
-            requests.get('http://elasticsearch:9200/_cat/health', headers=es_headers)
+            requests.get('http://es03:9200/_cat/health', headers=es_headers)
             keep_trying = False
         except:
             print('[!] Elasticsearch not ready yet....waiting')
@@ -47,8 +47,8 @@ def wait_for_es():
 def load_index_settings():
     # Publish index mappings and settings
     print('[+] Adding Cloudtrail and Nginx index mappings and settings')
-    r1 = requests.put('http://elasticsearch:9200/_template/cloudtrail', headers=es_headers, data=json.dumps(cloudtrail_pattern))
-    r2 = requests.put('http://elasticsearch:9200/_template/nginx', headers=es_headers, data=json.dumps(nginx_pattern))
+    r1 = requests.put('http://es03:9200/_template/cloudtrail', headers=es_headers, data=json.dumps(cloudtrail_pattern))
+    r2 = requests.put('http://es03:9200/_template/nginx', headers=es_headers, data=json.dumps(nginx_pattern))
     print(r1)
     print(r2)
 
