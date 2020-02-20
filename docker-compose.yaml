@@ -25,7 +25,7 @@ services:
     ports:
       - 5601:5601
     environment:
-      - elasticsearch.hosts=es01,es02,es03
+      ELASTICSEARCH_HOSTS: http://es02:9200
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.1.0
     environment:
